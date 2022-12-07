@@ -4,6 +4,8 @@ from requests.auth import HTTPBasicAuth
 from app.alpha import api_key
 from app.alpha import user_agent
 
+
+
 def result(n):
     print(('----------------'))
     print(str((n['MatchedObjectDescriptor']['PositionTitle'])))
@@ -14,6 +16,19 @@ def result(n):
   # if float(n['MatchedObjectDescriptor']['PositionRemuneration'][0]['MinimumRange']) >= float(criteria):
     print('Salary: ' + str(n['MatchedObjectDescriptor']['PositionRemuneration'][0]['MinimumRange']) + ' - ' +
                               str(n['MatchedObjectDescriptor']['PositionRemuneration'][0]['MaximumRange']))
+
+def results(n):
+  for n in data['SearchResult']['SearchResultItems']:
+    print(result(n))
+
+def fetch_jobs_data():
+    my_headers = {'Host': 'data.usajobs.gov', 'User-Agent': str(user_agent),'Authorization-Key': str(api_key)}
+    response = requests.get(f'https://data.usajobs.gov/api/search?{search_by}={criteria}', headers=my_headers)
+    print(f'https://data.usajobs.gov/api/search?{search_by}={criteria}')
+    data = json.loads(response.text)
+    for n in data['SearchResult']['SearchResultItems']:
+        result(n)
+
 def send_email(n):
   client = SendGridAPIClient(sendgrid_key) #> <class 'sendgrid.sendgrid.SendGridAPIClient>
   print("CLIENT:", type(client))
@@ -31,9 +46,7 @@ def send_email(n):
     print(type(err))
     print(err)
 
-def results(n):
-  for n in data['SearchResult']['SearchResultItems']:
-    print(result(n))
+
 
 criteria = ''
 
@@ -67,9 +80,4 @@ elif str(search_by) == 'PositionScheduleTypeCode':
 #      criteria = '5'
 #  elif schedule_type == 'Multiple Schedules':
 #      criteria = '6'
-my_headers = {'Host': 'data.usajobs.gov', 'User-Agent': str(user_agent),'Authorization-Key': str(api_key)}
-response = requests.get(f'https://data.usajobs.gov/api/search?{search_by}={criteria}', headers=my_headers)
-print(f'https://data.usajobs.gov/api/search?{search_by}={criteria}')
-data = json.loads(response.text)
-for n in data['SearchResult']['SearchResultItems']:
-  result(n)
+fetch_jobs_data()
