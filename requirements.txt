@@ -1,3 +1,19 @@
 requests
 
-time 
+python-dotenv
+
+pandas
+
+plotly
+
+statistics
+
+plotly.express
+
+pytest
+
+flask 
+
+sendgrid==6.6.0
+
+gunicorn
