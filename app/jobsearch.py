@@ -16,7 +16,6 @@ def result(n):
   # if float(n['MatchedObjectDescriptor']['PositionRemuneration'][0]['MinimumRange']) >= float(criteria):
     print('Salary: ' + str(n['MatchedObjectDescriptor']['PositionRemuneration'][0]['MinimumRange']) + ' - ' +
                               str(n['MatchedObjectDescriptor']['PositionRemuneration'][0]['MaximumRange']))
-
 def results(n):
   for n in data['SearchResult']['SearchResultItems']:
     print(result(n))
@@ -24,7 +23,7 @@ def results(n):
 def fetch_jobs_data():
     my_headers = {'Host': 'data.usajobs.gov', 'User-Agent': str(user_agent),'Authorization-Key': str(api_key)}
     response = requests.get(f'https://data.usajobs.gov/api/search?{search_by}={criteria}', headers=my_headers)
-    print(f'https://data.usajobs.gov/api/search?{search_by}={criteria}')
+    #print(f'https://data.usajobs.gov/api/search?{search_by}={criteria}')
     data = json.loads(response.text)
     for n in data['SearchResult']['SearchResultItems']:
         result(n)
@@ -47,9 +46,7 @@ def send_email(n):
     print(err)
 
 
-
 criteria = ''
-
 search_by = input("Please enter search criteria (Keyword, PositionTitle, RemunerationMinimumAmount, JobCategoryCode, Organization, PositionScheduleTypeCode) : ")
 if str(search_by) == 'Organization':
   criteria = input('Please enter your organization: ')
