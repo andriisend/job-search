@@ -45,36 +45,36 @@ def send_email(n):
     print(type(err))
     print(err)
 
-
-criteria = ''
-search_by = input("Please enter search criteria (Keyword, PositionTitle, RemunerationMinimumAmount, JobCategoryCode, Organization, PositionScheduleTypeCode) : ")
-if str(search_by) == 'Organization':
-  criteria = input('Please enter your organization: ')
-  print(criteria)
-elif str(search_by) == 'Keyword':
-  criteria = input('Search by keyword: ')
-elif str(search_by) == 'PositionTitle':
-  criteria = input('Search by position title: ')
-elif str(search_by) == 'RemunerationMinimumAmount': 
-  #dropdown menu with values here
-  criteria = input('Please enter minimum desired salary: ')
-elif str(search_by) == 'JobCategoryCode':
-  criteria = input('Please enter job category code: ')
-#elif search_by == 'LocationName':
-#  city = input('Please enter your city: ')
-#  state = input('Please enter your state: ')
-#  criteria = str(city) + ',%20' + str(state)
-elif str(search_by) == 'PositionScheduleTypeCode':
-  criteria = input("Please enter your schedule type code number (1 = Full-Time, 2 = Part-Time, 3 = Shift-Work, 4 = Intermittent, 5 = Job Sharing, 6 = Multiple Schedules) : ")
-#    criteria = '1'
-#  elif schedule_type == 'Part-Time':
-#    criteria = '2'
-#  elif schedule_type == 'Shift-Work':
-#    criteria = '3' 
-#  elif schedule_type == 'Intermittent':
-#     criteria = '4'
-#  elif schedule_type == 'Job Sharing':
-#      criteria = '5'
-#  elif schedule_type == 'Multiple Schedules':
-#      criteria = '6'
-fetch_jobs_data()
+if __name__ == "__main__":
+  criteria = ''
+  search_by = input("Please enter search criteria (Keyword, PositionTitle, RemunerationMinimumAmount, JobCategoryCode, Organization, PositionScheduleTypeCode) : ")
+  if str(search_by) == 'Organization':
+    criteria = input('Please enter your organization: ')
+    print(criteria)
+  elif str(search_by) == 'Keyword':
+    criteria = input('Search by keyword: ')
+  elif str(search_by) == 'PositionTitle':
+    criteria = input('Search by position title: ')
+  elif str(search_by) == 'RemunerationMinimumAmount': 
+    #dropdown menu with values here
+    criteria = input('Please enter minimum desired salary: ')
+  elif str(search_by) == 'JobCategoryCode':
+    criteria = input('Please enter job category code: ')
+  #elif search_by == 'LocationName':
+  #  city = input('Please enter your city: ')
+  #  state = input('Please enter your state: ')
+  #  criteria = str(city) + ',%20' + str(state)
+  elif str(search_by) == 'PositionScheduleTypeCode':
+    criteria = input("Please enter your schedule type code number (1 = Full-Time, 2 = Part-Time, 3 = Shift-Work, 4 = Intermittent, 5 = Job Sharing, 6 = Multiple Schedules) : ")
+  #    criteria = '1'
+  #  elif schedule_type == 'Part-Time':
+  #    criteria = '2'
+  #  elif schedule_type == 'Shift-Work':
+  #    criteria = '3' 
+  #  elif schedule_type == 'Intermittent':
+  #     criteria = '4'
+  #  elif schedule_type == 'Job Sharing':
+  #      criteria = '5'
+  #  elif schedule_type == 'Multiple Schedules':
+  #      criteria = '6'
+  fetch_jobs_data()
