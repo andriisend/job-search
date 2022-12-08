@@ -17,3 +17,5 @@ flask
 sendgrid==6.6.0
 
 gunicorn
+
+streamlit
