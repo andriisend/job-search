@@ -32,7 +32,9 @@ class DictionaryCriteria:
 class SimpleInput:
   value: str 
   def __ne__(self, other):
-    return self.value != other or (self.value == '' and other == None)
+    if self.value == '':
+      return other != '' and other != None
+    return self.value != other 
   def __eq__(self, other):
     """Overrides the default implementation"""
     if str(type(other)) == str(type(self)):
