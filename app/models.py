@@ -1,4 +1,9 @@
 from dataclasses import dataclass
+from alpha import sengdrid_key, user_agent
+import sendgrid 
+import os
+from sendgrid.helpers.mail import Mail, Email, To, Content
+
 
 @dataclass
 class Criteria:
@@ -6,7 +11,23 @@ class Criteria:
   value: str
   sidebar: bool = True
 
-  def __eq__(self, other):
+def send_email():
+  sg = sendgrid.SendGridAPIClient(sengdrid_key)
+  from_email = Email(user_agent)  # Change to your verified sender
+  to_email = To(recipient_email)  # Change to your recipient
+  subject = "Your USAJobs Search"
+  content = Content(content())
+  mail = Mail(from_email, to_email, subject, content)#
+
+  # Get a JSON-ready representation of the Mail object
+  mail_json = mail.get()
+
+  #Send an HTTP POST request to /mail/send
+  response = sg.client.mail.send.post(request_body=mail_json)
+  print(response.status_code)
+  print(response.headers)
+
+def __eq__(self, other):
     """Overrides the default implementation"""
     if str(type(other)) == str(type(self)):
       return self.value == other.value
@@ -22,7 +43,7 @@ class SearchInput:
   criteria: Criteria
   value: str
 
-  def __eq__(self, other):
+def __eq__(self, other):
     """Overrides the default implementation"""
     if str(type(other)) == str(type(self)):
       return self.value == other.value and str(type(other.criteria)) == str(type(self.criteria))
@@ -61,12 +82,4 @@ job_criterias = [
     Criteria('Keyword', 'Keyword', False),
     Criteria('Position Title', 'PositionTitle'),
     Criteria('Job Category Code', 'JobCategoryCode'),
-]
-
-dictionary_criteria = [
-  None,
-  Criteria('Agency Subelements', 'agencysubelements'),
-  Criteria('Occupational Series', 'occupationalseries'),
-  Criteria('Pay Plans', 'payplans'),
-  Criteria('Postal Codes', 'postalcodes')
 ]
