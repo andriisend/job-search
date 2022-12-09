@@ -1,5 +1,5 @@
 import streamlit as st
-from models import job_criterias, get_searchterms
+from models import job_criterias, get_searchterms, get_label_from_criteria, SimpleInput
 from alpha import api_key, user_agent, sengdrid_key
 from PIL import Image
 import os
@@ -14,33 +14,36 @@ if 'criterias' not in st.session_state:
 
 def print_result(n):
     st.write(('----------------'))
-    st.write(str((n['MatchedObjectDescriptor']['PositionTitle'])))
+    st.markdown(f"[{str((n['MatchedObjectDescriptor']['PositionTitle']))}]({str(n['MatchedObjectDescriptor']['ApplyURI'])})")
     st.write(str(n['MatchedObjectDescriptor']['PositionLocation'][0]['LocationName']))
     st.write(str('Job Description: ' + n['MatchedObjectDescriptor']['PositionURI']))
-    st.write(str('Application Link: ' + str(n['MatchedObjectDescriptor']['ApplyURI'])))
-  #if search_by == 'RemunerationMinimumAmount':
-  # if float(n['MatchedObjectDescriptor']['PositionRemuneration'][0]['MinimumRange']) >= float(criteria):
     st.write('Salary: ' + str(n['MatchedObjectDescriptor']['PositionRemuneration'][0]['MinimumRange']) + ' - ' +
                               str(n['MatchedObjectDescriptor']['PositionRemuneration'][0]['MaximumRange']))
 
 st.image("https://blogs.lawrence.edu/careercenter/files/2021/03/nfTYe3Ec_400x400.jpg", width = 200)
 st.markdown("# Job Search")
 
+
 with st.sidebar:
   st.markdown("# Search Criteria")
-with st.sidebar:
   for criteria in job_criterias:
     if criteria.sidebar:
-      st.session_state[criteria.value] = st.text_input(criteria.label)
+      if criteria.options == None:
+        st.session_state[criteria.value] = SimpleInput(st.text_input(criteria.label))
+      else:
+        st.session_state[criteria.value] = st.selectbox(criteria.label, criteria.options, format_func=get_label_from_criteria)
 
 for criteria in job_criterias:
   if criteria.sidebar != True:
-    st.session_state[criteria.value] = st.text_input(criteria.label)
+    if criteria.options == None:
+      st.session_state[criteria.value] = SimpleInput(st.text_input(criteria.label))
+    else:
+      st.session_state[criteria.value] = st.selectbox(criteria.label, criteria.options, format_func=get_label_from_criteria)
 
 
 if st.button("Search"):
   results = fetch_jobs_data(get_searchterms(st.session_state), api_key, user_agent)
-  # whatever
+  st.write("Please click the position title to navigate to the job application.")
   for n in results:
     print_result(n)
 

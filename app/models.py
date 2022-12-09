@@ -3,7 +3,7 @@ from alpha import sengdrid_key, user_agent
 import sendgrid 
 import os
 from sendgrid.helpers.mail import Mail, Email, To, Content
-
+from urllib.parse import quote as urlencode
 
 @dataclass
 class Criteria:
@@ -28,6 +28,31 @@ class DictionaryCriteria:
       return self.value == other.value
     return False
 
+@dataclass
+class SimpleInput:
+  value: str 
+  def __ne__(self, other):
+    return self.value != other or (self.value == '' and other == None)
+  def __eq__(self, other):
+    """Overrides the default implementation"""
+    if str(type(other)) == str(type(self)):
+        return self.value == other.value
+    return False
+
+@dataclass
+class JobCriteria:
+  label: str
+  value: str
+  options: list = None
+  sidebar: bool = True
+
+  def __eq__(self, other):
+    """Overrides the default implementation"""
+    if str(type(other)) == str(type(self)):
+      return self.value == other.value
+    return False
+
+
 def get_label_from_criteria(criteria):
   if criteria == None:
     return "-"
@@ -46,8 +71,8 @@ class SearchInput:
 def get_searchterms(search_input_storage):
   search_terms = []
   for criteria in job_criterias:
-    if search_input_storage[criteria.value] != "":
-      search_terms.append(f"{criteria.value}={search_input_storage[criteria.value]}")
+    if search_input_storage[criteria.value] != None :
+      search_terms.append(f"{criteria.value}={urlencode(search_input_storage[criteria.value].value, safe=',')}")
   return search_terms
 
 position_schedules = [
@@ -71,14 +96,13 @@ travel_requirements = [
 ]
 
 job_criterias = [
-    Criteria('Position Schedule Type', 'PositionScheduleTypeCode'),
-    Criteria('Minimum Salary', 'RemunerationMinimumAmount'),
-    Criteria('Keyword', 'Keyword', False),
-    Criteria('Position Title', 'PositionTitle'),
-    Criteria('Job Category Code', 'JobCategoryCode'),
-    Criteria('Organization Code', 'Organization'),
-    Criteria('Travel Preference', 'TravelPercentage'),
-    Criteria('Location', 'LocationName')
+    JobCriteria('Minimum Salary (e.g. 10000)', 'RemunerationMinimumAmount'),
+    JobCriteria('Keyword', 'Keyword', sidebar=False),
+    JobCriteria('Position Title', 'PositionTitle'),
+    JobCriteria('Job Category Code', 'JobCategoryCode'),
+    JobCriteria('Organization Code', 'Organization'),
+    JobCriteria('Travel Preference', 'TravelPercentage', travel_requirements),
+    JobCriteria('Position Schedule Type', 'PositionScheduleTypeCode', position_schedules),
     
 ]
 
