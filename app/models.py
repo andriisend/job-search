@@ -10,9 +10,19 @@ class Criteria:
   label: str
   value: str
   sidebar: bool = True
+  def __eq__(self, other):
+    """Overrides the default implementation"""
+    if str(type(other)) == str(type(self)):
+      return self.value == other.value
+    return False
 
-
-def __eq__(self, other):
+@dataclass
+class DictionaryCriteria:
+  label: str
+  value: str
+  help_text: str
+  search: callable
+  def __eq__(self, other):
     """Overrides the default implementation"""
     if str(type(other)) == str(type(self)):
       return self.value == other.value
@@ -27,8 +37,7 @@ def get_label_from_criteria(criteria):
 class SearchInput:
   criteria: Criteria
   value: str
-
-def __eq__(self, other):
+  def __eq__(self, other):
     """Overrides the default implementation"""
     if str(type(other)) == str(type(self)):
       return self.value == other.value and str(type(other.criteria)) == str(type(self.criteria))
@@ -67,6 +76,38 @@ job_criterias = [
     Criteria('Keyword', 'Keyword', False),
     Criteria('Position Title', 'PositionTitle'),
     Criteria('Job Category Code', 'JobCategoryCode'),
+    Criteria('Organization Code', 'Organization'),
     Criteria('Travel Preference', 'TravelPercentage'),
     Criteria('Location', 'LocationName')
+    
 ]
+
+def agency_search(search_input, data, st):
+  for n in (data['CodeList'][0]['ValidValue']):
+      if str(search_input) in str(n['Value']):
+          st.write(str(n['Code'][0:2] + ': ' + str(n['Value'])))
+
+def series_search(search_input, data, st):
+  for n in (data['CodeList'][0]['ValidValue']):
+       if str(search_input) in n['Value']:
+        st.write(n['Value'])
+
+def pay_search(search_input, data, st):
+  for n in (data['CodeList'][0]['ValidValue']):
+    if str(search_input) in n['Value']:
+         st.write(n['Code'] + ': ' + n['Value'])
+
+def postal_search(search_input, data, st):
+  for n in (data['CodeList'][0]['ValidValue']):
+        if str(search_input) in n['City']:
+         st.write(n['City'] + ': ' + n['Code']) 
+
+
+dictionary_criteria = [
+  None,
+  DictionaryCriteria('Agency Subelements', 'agencysubelements', 'Please input your desired agency: ', agency_search),
+  DictionaryCriteria('Occupational Series', 'occupationalseries', 'Search by keyword: ', series_search),
+  DictionaryCriteria('Pay Plans', 'payplans', 'Search by keyword: ', pay_search),
+  DictionaryCriteria('Postal Codes', 'postalcodes', 'Please enter the city: ', postal_search)
+]
+
