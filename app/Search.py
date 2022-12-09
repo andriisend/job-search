@@ -2,6 +2,7 @@ import streamlit as st
 from models import job_criterias, get_searchterms
 from api import fetch_jobs_data
 from alpha import api_key, user_agent
+from PIL import Image
 
 if 'criterias' not in st.session_state:
     st.session_state.criterias = []
@@ -17,8 +18,11 @@ def print_result(n):
     st.write('Salary: ' + str(n['MatchedObjectDescriptor']['PositionRemuneration'][0]['MinimumRange']) + ' - ' +
                               str(n['MatchedObjectDescriptor']['PositionRemuneration'][0]['MaximumRange']))
 
+st.image("https://blogs.lawrence.edu/careercenter/files/2021/03/nfTYe3Ec_400x400.jpg", width = 200)
 st.markdown("# Job Search")
 
+with st.sidebar:
+  st.markdown("# Search Criteria")
 with st.sidebar:
   for criteria in job_criterias:
     if criteria.sidebar:
