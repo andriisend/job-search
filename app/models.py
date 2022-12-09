@@ -11,21 +11,6 @@ class Criteria:
   value: str
   sidebar: bool = True
 
-def send_email():
-  sg = sendgrid.SendGridAPIClient(sengdrid_key)
-  from_email = Email(user_agent)  # Change to your verified sender
-  to_email = To(recipient_email)  # Change to your recipient
-  subject = "Your USAJobs Search"
-  content = Content(content())
-  mail = Mail(from_email, to_email, subject, content)#
-
-  # Get a JSON-ready representation of the Mail object
-  mail_json = mail.get()
-
-  #Send an HTTP POST request to /mail/send
-  response = sg.client.mail.send.post(request_body=mail_json)
-  print(response.status_code)
-  print(response.headers)
 
 def __eq__(self, other):
     """Overrides the default implementation"""
@@ -82,4 +67,6 @@ job_criterias = [
     Criteria('Keyword', 'Keyword', False),
     Criteria('Position Title', 'PositionTitle'),
     Criteria('Job Category Code', 'JobCategoryCode'),
+    Criteria('Travel Preference', 'TravelPercentage'),
+    Criteria('Location', 'LocationName')
 ]

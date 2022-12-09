@@ -21,6 +21,7 @@ def get_label_from_criteria(Criteria):
   if Criteria == None:
     return "-"
   return Criteria.label
+st.markdown("# Code Dictionary")
 
 user_input = st.selectbox(
     'Please choose a search criteria',

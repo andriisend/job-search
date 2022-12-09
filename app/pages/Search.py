@@ -1,12 +1,12 @@
 import streamlit as st
-from models import job_criterias, get_searchterms, send_email
-from api import fetch_jobs_data
+from models import job_criterias, get_searchterms
 from alpha import api_key, user_agent, sengdrid_key
 from PIL import Image
 import os
 import sendgrid as sg
 from sendgrid.helpers.mail import Mail, Email, To, Content
 from Home import recipient_email
+from api import fetch_jobs_data, fetch_code_list
 
 if 'criterias' not in st.session_state:
     st.session_state.criterias = []
