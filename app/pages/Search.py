@@ -38,30 +38,30 @@ for criteria in job_criterias:
     st.session_state[criteria.value] = st.text_input(criteria.label)
 
 
-
-
- 
-
 if st.button("Search"):
   results = fetch_jobs_data(get_searchterms(st.session_state), api_key, user_agent)
   # whatever
   for n in results:
     print_result(n)
+
+def email_result(n):
+  for x in n:
+    print_result(x)
     
 
 if st.checkbox("Would you like to receive your search results in an email?", value=False):
-    if recipient_email != None:
-      sg = sg.SendGridAPIClient(sengdrid_key)
-      from_email = Email(user_agent)  # Change to your verified sender
-      to_email = To(recipient_email)  # Change to your recipient
-      subject = "Your USAJobs Search"
-      content = Content('text/plain', 'Hello' )
-      mail = Mail(from_email, to_email, subject, content)#
-        # Get a JSON-ready representation of the Mail object
-      mail_json = mail.get()
-        #Send an HTTP POST request to /mail/send
-      response = sg.client.mail.send.post(request_body=mail_json)
-      print(response.status_code)
-      print(response.headers)
-
-
+  if recipient_email == None:
+    st.write("Please enter your email on the Home page.")   
+  else:
+    sg = sg.SendGridAPIClient(sengdrid_key)
+    from_email = Email(user_agent)
+    to_email = To(recipient_email)  
+    subject = "Your USAJobs Search"
+    content = Content('text/plain', 'email_result(results)' )
+    mail = Mail(from_email, to_email, subject, content)
+        
+    mail_json = mail.get()
+      
+    #response = sg.client.mail.send.post(request_body=mail_json)
+    #print(response.status_code)
+    #print(response.headers)

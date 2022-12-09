@@ -28,25 +28,55 @@ user_input = st.selectbox(
     ('Agency Subelements', 'Occupational Series', 'Pay Plans', 'Postal Codes'))
 
 #dictionary_search = get_label_from_criteria(user_input)
+
 dictionary_search = ''
+
+
 if user_input == 'Agency Subelements':
   dictionary_search = 'agencysubelements'
-elif user_input == 'Occupational Series':
-  dictionary_search == 'occupationalseries'
-elif user_input == 'Pay Plans':
-  dictionary_search == 'payplans'
-elif user_input == 'Postal Codes':
-  dictionary_search == 'postalcodes'
-
-request_url = f"https://data.usajobs.gov/api/codelist/{dictionary_search}"
-response = requests.get(request_url)
-data = json.loads(response.text)
-if dictionary_search == 'agencysubelements':
-  agency_input = st.text_input("Please input your desired agency code: ")
+  request_url = f"https://data.usajobs.gov/api/codelist/{dictionary_search}"
+  response = requests.get(request_url)
+  data = json.loads(response.text)
+  agency_input = st.text_input("Please input your desired agency: ")
   if st.button("Search"):
     for n in (data['CodeList'][0]['ValidValue']):
-      if str(agency_input) in str(n['Code']):
+      if str(agency_input) in str(n['Value']):
           st.write(str(n['Code'][0:2] + ': ' + str(n['Value'])))
+
+elif user_input == 'Occupational Series':
+  dictionary_search = 'occupationalseries'
+  request_url = f"https://data.usajobs.gov/api/codelist/{dictionary_search}"
+  response = requests.get(request_url)
+  data = json.loads(response.text)
+  series_keyword = st.text_input("Search by keyword: ")
+  if st.button("Search"):
+    st.write(request_url)
+    for n in (data['CodeList'][0]['ValidValue']):
+      if str(series_keyword) in n['Value']:
+        st.write(n['Value'])
+
+elif user_input == 'Pay Plans':
+  dictionary_search = 'payplans'
+  request_url = f"https://data.usajobs.gov/api/codelist/{dictionary_search}"
+  response = requests.get(request_url)
+  data = json.loads(response.text)
+  pay_keyword = st.text_input("Search by keyword: ")
+  for n in (data['CodeList'][0]['ValidValue']):
+    if str(pay_keyword) in n['Value']:
+         st.write(n['Code'] + ': ' + n['Value'])
+
+elif user_input == 'Postal Codes':
+  dictionary_search = 'postalcodes'
+  request_url = f"https://data.usajobs.gov/api/codelist/{dictionary_search}"
+  response = requests.get(request_url)
+  data = json.loads(response.text)
+  city_search = st.text_input("Please enter the city: ")
+  if st.button("Search"):
+    for n in (data['CodeList'][0]['ValidValue']):
+        if str(city_search) in n['City']:
+         st.write(n['City'] + ': ' + n['Code']) 
+
+  
 #if "ge" in user_input:
  #     user_input="agencysubelements"
  #     request_url = f"https://data.usajobs.gov/api/codelist/{user_input}"
@@ -61,9 +91,8 @@ if dictionary_search == 'agencysubelements':
 #  if st.button("Search"):
 #    for n in (data['CodeList'][0]['ValidValue']):
 #      st.write(n['Value'])
-elif dictionary_search == 'payplans':    
-      for n in (data['CodeList'][0]['ValidValue']): 
-         st.write((n['Value']))
+#elif dictionary_search == 'payplans':    
+      
 #elif "ost" in user_input:
 #      user_input="postalcodes"
 #      print("Postal Codes")
