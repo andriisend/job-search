@@ -4,7 +4,9 @@
 ## Configuration
 
 
-[Obtain an API Key](https://developer.usajobs.gov/APIRequest/Index) from USAJobs.
+[Obtain a USAJobs API Key](https://developer.usajobs.gov/APIRequest/Index) and [Sendgrid API Key](https://docs.sendgrid.com/for-developers/sending-email/api-getting-started)
+
+Your User Agent is your email address with which you obtained your API keys. 
 
 Then create a local ".env" file and provide the key like this:
 
@@ -12,6 +14,8 @@ Then create a local ".env" file and provide the key like this:
 # this is the ".env" file...
 
 api_key="_________"
+user_agent="________"
+sendgrid_key="________"
 ```
 ## Setup
 
@@ -31,32 +35,10 @@ pip install -r requirements.txt
 
 ## Usage
 
-
-
-Run an example script:
+Run the web app (opens automatically in your browser or view in the browser at http://localhost:5000/):
 
 ```sh
-#python app/my_script.py
-```
 
-Run a job search report 
+streamlit run -m Home.py
 
-```sh
-#python app/stocks.py
-python -m app.jobsearch
-```
-
-### Web App
-
-Run the web app (then view in the browser at http://localhost:5000/):
-
-```sh
-# Mac OS:
-FLASK_APP=web_app flask run
-
-# Windows OS:
-# ... if `export` doesn't work for you, try `set` instead
-# ... or set FLASK_APP variable via ".env" file
-export FLASK_APP=web_app
-flask run
 ```
