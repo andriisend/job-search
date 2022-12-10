@@ -83,7 +83,7 @@ should_send_email = st.checkbox(
     "Would you like to receive your search results in an email?",
     value=False)
 if should_send_email and st.session_state.recipient_email == "":
-  st.markdown("`You need to enter your email on the home page for this feature to work.`")
+    st.markdown("`You need to enter your email on the home page for this feature to work.`")
 if st.button("Search"):
     results = fetch_jobs_data(
         get_searchterms(
