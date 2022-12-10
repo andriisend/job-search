@@ -11,11 +11,11 @@ if 'criterias' not in st.session_state:
 
 
 def print_result(n):
-    st.write(('----------------'))
-    st.markdown(f"[{str((n['MatchedObjectDescriptor']['PositionTitle']))}]({str(n['MatchedObjectDescriptor']['ApplyURI'])})")
-    st.write(str(n['MatchedObjectDescriptor']['PositionLocation'][0]['LocationName']))
-    st.write(str('Job Description: ' + n['MatchedObjectDescriptor']['PositionURI']))
-    st.write('Salary: ' + str(n['MatchedObjectDescriptor']['PositionRemuneration'][0]['MinimumRange']) + ' - ' +
+  st.write(('----------------'))
+  st.markdown(f"[{str((n['MatchedObjectDescriptor']['PositionTitle']))}]({str(n['MatchedObjectDescriptor']['ApplyURI'])})")
+  st.write(str(n['MatchedObjectDescriptor']['PositionLocation'][0]['LocationName']))
+  st.write(str('Job Description: ' + n['MatchedObjectDescriptor']['PositionURI']))
+  st.write('Salary: ' + str(n['MatchedObjectDescriptor']['PositionRemuneration'][0]['MinimumRange']) + ' - ' +
                               str(n['MatchedObjectDescriptor']['PositionRemuneration'][0]['MaximumRange']))
 
 def email_item_print(n):

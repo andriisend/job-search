@@ -2,6 +2,7 @@ import requests
 import json 
 import streamlit as st
 from models import dictionary_criteria, get_label_from_criteria
+from api import fetch_code_list
 
 st.markdown("# Code Dictionary")
 
@@ -10,9 +11,6 @@ user_input = st.selectbox(
     dictionary_criteria, format_func=get_label_from_criteria)
 
 if user_input != None:
-  request_url = f"https://data.usajobs.gov/api/codelist/{user_input.value}"
-  response = requests.get(request_url)
-  data = json.loads(response.text)
   search_input = st.text_input(user_input.help_text)
   if st.button("Search"):
-    user_input.search(search_input, data, st)
+    user_input.search(search_input, fetch_code_list(user_input), st)

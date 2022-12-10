@@ -1,8 +1,4 @@
 from dataclasses import dataclass
-from alpha import sengdrid_key, user_agent
-import sendgrid 
-import os
-from sendgrid.helpers.mail import Mail, Email, To, Content
 from urllib.parse import quote as urlencode
 
 @dataclass
@@ -112,21 +108,25 @@ def agency_search(search_input, data, st):
   for n in (data['CodeList'][0]['ValidValue']):
       if str(search_input) in str(n['Value']):
           st.write(str(n['Code'][0:2] + ': ' + str(n['Value'])))
+  
 
 def series_search(search_input, data, st):
   for n in (data['CodeList'][0]['ValidValue']):
        if str(search_input) in n['Value']:
         st.write(n['Value'])
+  
 
 def pay_search(search_input, data, st):
   for n in (data['CodeList'][0]['ValidValue']):
     if str(search_input) in n['Value']:
-         st.write(n['Code'] + ': ' + n['Value'])
+        st.write(n['Code'] + ': ' + n['Value'])
+  
 
 def postal_search(search_input, data, st):
   for n in (data['CodeList'][0]['ValidValue']):
         if str(search_input) in n['City']:
          st.write(n['City'] + ': ' + n['Code']) 
+  
 
 
 dictionary_criteria = [
@@ -137,3 +137,5 @@ dictionary_criteria = [
   DictionaryCriteria('Postal Codes', 'postalcodes', 'Please enter the city: ', postal_search)
 ]
 
+# if len((data['CodeList'][0]['ValidValue'])) == 0:
+#     st.write("No results found. ")
