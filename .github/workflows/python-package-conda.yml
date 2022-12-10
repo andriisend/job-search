@@ -1,4 +1,4 @@
-name: Python Package using Conda
+name: Lint and Test
 
 on: [push]
 
@@ -18,10 +18,10 @@ jobs:
       run: |
         pip install -r requirements.txt
         pip install pylint
+        pip install pytest
     - name: Lint
       run: |
         pylint $(git ls-files '*.py')
     - name: Test with pytest
       run: |
-        pip install pytest
         pytest
