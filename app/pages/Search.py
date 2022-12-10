@@ -13,9 +13,9 @@ if 'recipient_email' not in st.session_state:
 def print_result(job_entry):
     st.write(('----------------'))
     st.write(str(job_entry['MatchedObjectDescriptor']['PositionTitle']))
-    st.write('Application link: ' + str(job_entry['MatchedObjectDescriptor']['ApplyURI']))
     st.write(str(job_entry['MatchedObjectDescriptor']
              ['PositionLocation'][0]['LocationName']))
+    st.write('Application link: ' + str(job_entry['MatchedObjectDescriptor']['ApplyURI']))
     st.write(str('Job Description: ' +
                  job_entry['MatchedObjectDescriptor']['PositionURI']))
     st.write('Salary: ' + str(job_entry['MatchedObjectDescriptor']['PositionRemuneration'][0]['MinimumRange']) + ' - ' +
