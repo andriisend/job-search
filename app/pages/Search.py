@@ -12,8 +12,8 @@ if 'recipient_email' not in st.session_state:
 
 def print_result(job_entry):
     st.write(('----------------'))
-    st.markdown(
-        f"[{str((job_entry['MatchedObjectDescriptor']['PositionTitle']))}]({str(job_entry['MatchedObjectDescriptor']['ApplyURI'])})")
+    st.write(str(job_entry['MatchedObjectDescriptor']['PositionTitle']))
+    st.write('Application link: ' + str(job_entry['MatchedObjectDescriptor']['ApplyURI']))
     st.write(str(job_entry['MatchedObjectDescriptor']
              ['PositionLocation'][0]['LocationName']))
     st.write(str('Job Description: ' +
