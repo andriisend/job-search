@@ -43,5 +43,5 @@ streamlit run -m app/Home.py
 
 ```
 
-Navigate to [this website](https://andriisend-job-search-apphome-9m2ijg.streamlit.app/search) to launch the app on the admin host server. 
+Navigate to [this website](https://usajobs-search.streamlit.app) to launch the app on the admin host server. 
 
