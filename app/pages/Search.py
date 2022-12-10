@@ -1,9 +1,7 @@
 import streamlit as st
 from models import job_criterias, get_searchterms, get_label_from_criteria, SimpleInput
 from alpha import api_key, user_agent, sengdrid_key
-from PIL import Image
-import os
-from Home import recipient_email
+from home import recipient_email
 from api import fetch_jobs_data, send_email
 
 if 'criterias' not in st.session_state:

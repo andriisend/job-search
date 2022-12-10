@@ -1,5 +1,3 @@
-import requests
-import json
 import streamlit as st
 from models import dictionary_criteria, get_label_from_criteria
 from api import fetch_code_list
