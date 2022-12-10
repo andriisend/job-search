@@ -99,3 +99,5 @@ if st.button("Search"):
             user_agent,
             st.session_state.recipient_email,
             email_print(results))
+
+st.footer("© Copyright 2022 Andrii Sendziuk. [Source](https://github.com/andriisend/job-search)")

@@ -12,3 +12,7 @@ if user_input is not None:
     search_input = st.text_input(user_input.help_text)
     if st.button("Search"):
         user_input.search(search_input, fetch_code_list(user_input), st)
+
+
+
+st.footer("© Copyright 2022 Andrii Sendziuk. [Source](https://github.com/andriisend/job-search)")
