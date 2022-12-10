@@ -99,3 +99,4 @@ if st.button("Search"):
             user_agent,
             st.session_state.recipient_email,
             email_print(results))
+            
