@@ -1,9 +1,8 @@
-from app.models import Criteria, DictionaryCriteria, SimpleInput, JobCriteria, SearchInput
-from app.models import get_label_from_criteria, get_searchterms, agency_search, series_search, pay_search, postal_search
 from collections import defaultdict
+from app.models import Criteria, DictionaryCriteria, SimpleInput, JobCriteria, SearchInput
+from app.models import get_label_from_criteria, get_searchterms
 
-
-def test_CriteriaEquality():
+def test_criteriaequality():
     assert Criteria(
         'special',
         'speciallabel') == Criteria(
@@ -13,7 +12,7 @@ def test_CriteriaEquality():
     assert Criteria('special', 'special1') != Criteria('special', 'special2')
 
 
-def test_DictionaryCriteriaEquality():
+def test_dictionarycriteriaequality():
     assert DictionaryCriteria(
         'special',
         'speciallabel',
@@ -43,12 +42,12 @@ def test_DictionaryCriteriaEquality():
         lambda x: x)
 
 
-def test_SimpleInputEquality():
+def test_simpleinputequality():
     assert SimpleInput('special') == SimpleInput('special')
     assert SimpleInput('special') != SimpleInput('special1')
 
 
-def test_JobCriteriaEquality():
+def test_jobcriteriaequality():
     assert JobCriteria(
         'special',
         'speciallabel',
@@ -72,7 +71,7 @@ def test_JobCriteriaEquality():
         [])
 
 
-def test_SearchInputEquality():
+def test_searchinputequality():
     assert SearchInput(None, 'special') == SearchInput(None, 'special')
     assert SearchInput(None, 'special') != SearchInput(None, 'special1')
 

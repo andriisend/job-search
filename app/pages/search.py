@@ -8,44 +8,44 @@ if 'criterias' not in st.session_state:
     st.session_state.criterias = []
 
 
-def print_result(n):
+def print_result(job_entry):
     st.write(('----------------'))
     st.markdown(
-        f"[{str((n['MatchedObjectDescriptor']['PositionTitle']))}]({str(n['MatchedObjectDescriptor']['ApplyURI'])})")
-    st.write(str(n['MatchedObjectDescriptor']
+        f"[{str((job_entry['MatchedObjectDescriptor']['PositionTitle']))}]({str(job_entry['MatchedObjectDescriptor']['ApplyURI'])})")
+    st.write(str(job_entry['MatchedObjectDescriptor']
              ['PositionLocation'][0]['LocationName']))
     st.write(str('Job Description: ' +
-                 n['MatchedObjectDescriptor']['PositionURI']))
-    st.write('Salary: ' + str(n['MatchedObjectDescriptor']['PositionRemuneration'][0]['MinimumRange']) + ' - ' +
-             str(n['MatchedObjectDescriptor']['PositionRemuneration'][0]['MaximumRange']))
+                 job_entry['MatchedObjectDescriptor']['PositionURI']))
+    st.write('Salary: ' + str(job_entry['MatchedObjectDescriptor']['PositionRemuneration'][0]['MinimumRange']) + ' - ' +
+             str(job_entry['MatchedObjectDescriptor']['PositionRemuneration'][0]['MaximumRange']))
 
 
-def email_item_print(n):
+def email_item_print(job_entry):
     output = ('----------------')
     output += "\n"
-    output += str((n['MatchedObjectDescriptor']['PositionTitle']))
+    output += str((job_entry['MatchedObjectDescriptor']['PositionTitle']))
     output += "\n"
-    output += (str(n['MatchedObjectDescriptor']
+    output += (str(job_entry['MatchedObjectDescriptor']
                ['PositionLocation'][0]['LocationName']))
     output += "\n"
     output += "\n"
     output += 'Application Link: ' + \
-        (str(n['MatchedObjectDescriptor']['ApplyURI']))
+        (str(job_entry['MatchedObjectDescriptor']['ApplyURI']))
     output += "\n"
     output += "\n"
     output += (str('Job Description: ' +
-                   n['MatchedObjectDescriptor']['PositionURI']))
+                   job_entry['MatchedObjectDescriptor']['PositionURI']))
     output += "\n"
     output += "\n"
-    output += ('Salary: ' + str(n['MatchedObjectDescriptor']['PositionRemuneration'][0]['MinimumRange']) + ' - ' +
-               str(n['MatchedObjectDescriptor']['PositionRemuneration'][0]['MaximumRange']))
+    output += ('Salary: ' + str(job_entry['MatchedObjectDescriptor']['PositionRemuneration'][0]['MinimumRange']) + ' - ' +
+               str(job_entry['MatchedObjectDescriptor']['PositionRemuneration'][0]['MaximumRange']))
     return output
 
 
-def email_print(results):
+def email_print(jobs):
     output = ''
-    for n in results:
-        output += email_item_print(n)
+    for job in jobs:
+        output += email_item_print(job)
         output += "\n"
         output += "\n"
         output += "\n"

@@ -122,28 +122,28 @@ job_criterias = [
 ]
 
 
-def agency_search(search_input, data, st):
-    for n in (data['CodeList'][0]['ValidValue']):
-        if str(search_input) in str(n['Value']):
-            st.write(str(n['Code'][0:2] + ': ' + str(n['Value'])))
+def agency_search(search_input, data, writer):
+    for entry in data['CodeList'][0]['ValidValue']:
+        if str(search_input) in str(entry['Value']):
+            writer.write(str(entry['Code'][0:2] + ': ' + str(entry['Value'])))
 
 
-def series_search(search_input, data, st):
-    for n in (data['CodeList'][0]['ValidValue']):
-        if str(search_input) in n['Value']:
-            st.write(n['Value'])
+def series_search(search_input, data, writer):
+    for entry in data['CodeList'][0]['ValidValue']:
+        if str(search_input) in entry['Value']:
+            writer.write(entry['Value'])
 
 
-def pay_search(search_input, data, st):
-    for n in (data['CodeList'][0]['ValidValue']):
-        if str(search_input) in n['Value']:
-            st.write(n['Code'] + ': ' + n['Value'])
+def pay_search(search_input, data, writer):
+    for entry in data['CodeList'][0]['ValidValue']:
+        if str(search_input) in entry['Value']:
+            writer.write(entry['Code'] + ': ' + entry['Value'])
 
 
-def postal_search(search_input, data, st):
-    for n in (data['CodeList'][0]['ValidValue']):
-        if str(search_input) in n['City']:
-            st.write(n['City'] + ': ' + n['Code'])
+def postal_search(search_input, data, writer):
+    for entry in data['CodeList'][0]['ValidValue']:
+        if str(search_input) in entry['City']:
+            writer.write(entry['City'] + ': ' + entry['Code'])
 
 
 dictionary_criteria = [
