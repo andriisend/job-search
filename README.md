@@ -39,6 +39,9 @@ Run the web app (opens automatically in your browser or view in the browser at h
 
 ```sh
 
-streamlit run -m Home.py
+streamlit run -m app/Home.py
 
 ```
+
+Navigate to [this website](https://andriisend-job-search-apphome-9m2ijg.streamlit.app/search) to launch the app on the admin host server. 
+

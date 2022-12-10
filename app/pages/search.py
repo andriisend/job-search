@@ -1,11 +1,13 @@
 import streamlit as st
 from models import job_criterias, get_searchterms, get_label_from_criteria, SimpleInput
 from alpha import api_key, user_agent, sengdrid_key
-from home import recipient_email
 from api import fetch_jobs_data, send_email
 
 if 'criterias' not in st.session_state:
     st.session_state.criterias = []
+
+if 'recipient_email' not in st.session_state:
+    st.session_state.recipient_email = ''
 
 
 def print_result(job_entry):
@@ -80,6 +82,8 @@ for criteria in job_criterias:
 should_send_email = st.checkbox(
     "Would you like to receive your search results in an email?",
     value=False)
+if should_send_email and st.session_state.recipient_email == "":
+  st.markdown("`You need to enter your email on the home page for this feature to work.`")
 if st.button("Search"):
     results = fetch_jobs_data(
         get_searchterms(
@@ -89,9 +93,9 @@ if st.button("Search"):
     st.write("Please click the position title to navigate to the job application.")
     for n in results:
         print_result(n)
-    if should_send_email:
+    if should_send_email and st.session_state.recipient_email != '':
         send_email(
             sengdrid_key,
             user_agent,
-            recipient_email,
+            st.session_state.recipient_email,
             email_print(results))
